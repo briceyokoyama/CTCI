@@ -1,8 +1,18 @@
+function isUnique(str) {
+  let charHash = {};
 
+  for (let i = 0; i < str.length; i++) {
+    if (charHash[str[i]]) {
+      return false;
+    }
+    charHash[str[i]] = true;
+  }
+  return true;
+}
 
 // no additional data structures
 
-function isUnique(str) {
+function isUnique1(str) {
   
   for (let i = 0; i < str.length; i++) {
     for (let j = i+1; j < str.length; j++) {
