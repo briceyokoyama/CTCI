@@ -2,23 +2,54 @@ class queueViaStacks {
   constructor() {
     this.inStack = [];
     this.outStack = [];
+    this.first = null;
+    this.last = null;
   }
 
   enqueue(value) {
-    this.inStack.push(value);
+    let newNode = new Node(value);
+    if (!this.first) {
+      this.first = newNode;
+      this.last = newNode;
+    } else {
+      this.last.next = newNode;
+      this.last = newNode;
+    }
+    this.inStack.push(newNode);
   }
 
   dequeue() {
-    if (this.outStack.length !== 0) {
-      return this.outStack.pop();
-    } else {
+
+    if (this.inStack.length === 0 && this.outStack.length === 0) return null;
+
+    if (this.outStack.length === 0) {
       while (this.inStack.length > 0) {
         this.outStack.push(this.inStack.pop());
       }
-      return this.outStack.pop();
     }
+    let removed = this.first;
+    this.first = this.first.next;
+    removed.next = null;
+    return this.outStack.pop();
+  }
+
+  isEmpty() {
+    return (this.inStack.length === 0 && this.outStack.length === 0)
+  }
+
+  peek() {
+    return this.first.value;
+  }
+
+}
+
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
   }
 }
+
 
 let queue = new queueViaStacks();
 queue.enqueue(5);
