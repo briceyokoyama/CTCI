@@ -1,4 +1,22 @@
-class stackMin {
+function sortStack(stack) {
+  let stack2 = new Stack();
+
+  while(!stack.isEmpty()) {
+    let temp = stack.pop();
+
+    while (!stack2.isEmpty() && stack2.peek() > temp) {
+      stack.push(stack2.pop());
+    }
+    stack2.push(temp);
+  }
+
+  while (!stack2.isEmpty()) {
+    stack.push(stack2.pop())
+  }
+  return stack;
+}
+
+class Stack {
   constructor() {
     this.stack = [];
     this.minStack = [];
@@ -51,7 +69,7 @@ class Node {
   }
 }
 
-let stack = new stackMin();
+let stack = new Stack();
 stack.push(5);
 stack.push(10);
 stack.push(3);
@@ -59,16 +77,5 @@ stack.push(7);
 stack.push(2);
 stack.push(2);
 stack.push(1);
-console.log(stack.min());
-stack.pop();
-console.log(stack.min());
-stack.pop();
-console.log(stack.min());
-stack.pop();
-console.log(stack.min());
-stack.pop();
-console.log(stack.min());
-stack.pop();
-console.log(stack.min());
-stack.pop();
-console.log(stack.min());
+sortStack(stack)
+console.log(stack);
