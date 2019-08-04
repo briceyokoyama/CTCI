@@ -7,10 +7,8 @@ class stackMin {
   push(value) {
     this.stack.push(value);
 
-    if (this.minStack.length === 0 || value < this.minStack[this.minStack.length - 1]) {
+    if (this.minStack.length === 0 || value <= this.minStack[this.minStack.length - 1]) {
       this.minStack.push(value);
-    } else {
-      this.minStack.push(this.minStack[this.minStack.length - 1]);
     }
 
     return this.stack.length;
@@ -18,7 +16,10 @@ class stackMin {
 
   pop() {
     let val = this.stack.pop();
-    this.minStack.pop();
+
+    if (this.minStack[this.minStack.length - 1] === val) {
+      this.minStack.pop();
+    }
 
     return val;
   }
@@ -33,6 +34,7 @@ stack.push(5);
 stack.push(10);
 stack.push(3);
 stack.push(7);
+stack.push(2);
 stack.push(2);
 stack.push(1);
 console.log(stack.min());
